@@ -215,34 +215,37 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def savefile(self):
-        categories = []
-        row_count = self.categoriesTable.rowCount()
-        for i in range(0, row_count):
-            category = {}
-            category['cid'] = int(self.categoriesTable.item(i, 0).text())
-            category['name'] = self.categoriesTable.item(i, 1).text()
-            category['icon'] = self.categoriesTable.item(i, 2).text()
-            category['tapIcon'] = self.categoriesTable.item(i, 3).text()
-            category['quantities'] = int(self.categoriesTable.item(i, 4).text())
-            categories.append(category)
-        buildings = []
-        row_count = self.buildingsTable.rowCount()
-        for i in range(0, row_count):
-            building = {}
-            building['cid'] = int(self.buildingsTable.item(i, 0).text())
-            building['bid'] = int(self.buildingsTable.item(i, 1).text())
-            building['name'] = self.buildingsTable.item(i, 2).text()
-            building['longitude'] = float(self.buildingsTable.item(i, 3).text())
-            building['latitude'] = float(self.buildingsTable.item(i, 4).text())
-            building['image'] = self.buildingsTable.item(i, 5).text()
-            buildings.append(building)
-        nav_data = {'categories': categories, 'buildings': buildings}
-        print(nav_data)
-        file_name = QFileDialog.getSaveFileName(self, '保存文件', '', 'JSON files(*.json)')[0]
-        print(file_name)
-        if file_name:
-            with open(file_name, 'w', encoding="utf-8") as f:
-                json.dump(nav_data, f, sort_keys=False, indent=4, separators=(',', ': '), ensure_ascii=False)
+        try:
+            categories = []
+            row_count = self.categoriesTable.rowCount()
+            for i in range(0, row_count):
+                category = {}
+                category['cid'] = int(self.categoriesTable.item(i, 0).text())
+                category['name'] = self.categoriesTable.item(i, 1).text()
+                category['icon'] = self.categoriesTable.item(i, 2).text()
+                category['tapIcon'] = self.categoriesTable.item(i, 3).text()
+                category['quantities'] = int(self.categoriesTable.item(i, 4).text())
+                categories.append(category)
+            buildings = []
+            row_count = self.buildingsTable.rowCount()
+            for i in range(0, row_count):
+                building = {}
+                building['cid'] = int(self.buildingsTable.item(i, 0).text())
+                building['bid'] = int(self.buildingsTable.item(i, 1).text())
+                building['name'] = self.buildingsTable.item(i, 2).text()
+                building['longitude'] = float(self.buildingsTable.item(i, 3).text())
+                building['latitude'] = float(self.buildingsTable.item(i, 4).text())
+                building['image'] = self.buildingsTable.item(i, 5).text()
+                buildings.append(building)
+            nav_data = {'categories': categories, 'buildings': buildings}
+            print(nav_data)
+            file_name = QFileDialog.getSaveFileName(self, '保存文件', '', 'JSON files(*.json)')[0]
+            print(file_name)
+            if file_name:
+                with open(file_name, 'w', encoding="utf-8") as f:
+                    json.dump(nav_data, f, sort_keys=False, indent=4, separators=(',', ': '), ensure_ascii=False)
+        except Exception as e:
+            QMessageBox.warning(self, "警告", "出现异常，无法保存！\n请排除异常后再试！\n\n 异常信息：\n" + str(e), QMessageBox.Yes)
 
     @pyqtSlot()
     def cat_add(self):
