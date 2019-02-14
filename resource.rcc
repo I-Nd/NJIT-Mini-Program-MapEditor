@@ -1,0 +1,6 @@
+<RCC>
+	<qresource prefix="/">
+		<file>guide.png</file>
+		<file>qmc2-black.qss</file>
+	</qresource>
+</RCC>

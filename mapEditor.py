@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView, QAbstractIte
 from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtGui import QIcon
 from mapEditor_ui import *
+import resource
 
 
 class CategoryDialog(QDialog):
@@ -16,7 +17,7 @@ class CategoryDialog(QDialog):
         self.iconEdit.setText(icon)
         self.tapIconEdit.setText(tapIcon)
         self.quantitiesEdit.setText(quantities)
-        self.setWindowIcon(QIcon('./guide.png'))
+        self.setWindowIcon(QIcon(':/guide.png'))
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -86,7 +87,7 @@ class BuildingDialog(QDialog):
         self.longitudeEdit.setText(longitude)
         self.latitudeEdit.setText(latitude)
         self.imageEdit.setText(image)
-        self.setWindowIcon(QIcon('./guide.png'))
+        self.setWindowIcon(QIcon(':/guide.png'))
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -156,7 +157,7 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(ClientWindow, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowIcon(QIcon('./guide.png'))
+        self.setWindowIcon(QIcon(':/guide.png'))
         self.setWindowTitle('校园导航数据编辑器 v1.0')
         self.categoriesTable.setColumnWidth(0, 64)
         self.categoriesTable.setColumnWidth(1, 64)
@@ -383,7 +384,10 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     clientWindow = ClientWindow()
-    with open('qmc2-black.qss', 'r') as q:
-        clientWindow.setStyleSheet(q.read())
+    file = QtCore.QFile(':/qmc2-black.qss')
+    file.open(QtCore.QFile.ReadOnly)
+    styleSheet = file.readAll()
+    styleSheet = str(styleSheet, encoding='utf8')
+    clientWindow.setStyleSheet(styleSheet)
     clientWindow.show()
     sys.exit(app.exec_())
