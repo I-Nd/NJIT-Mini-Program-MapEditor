@@ -16,6 +16,7 @@ class CategoryDialog(QDialog):
         self.iconEdit.setText(icon)
         self.tapIconEdit.setText(tapIcon)
         self.quantitiesEdit.setText(quantities)
+        self.setWindowIcon(QIcon('./guide.png'))
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -85,6 +86,7 @@ class BuildingDialog(QDialog):
         self.longitudeEdit.setText(longitude)
         self.latitudeEdit.setText(latitude)
         self.imageEdit.setText(image)
+        self.setWindowIcon(QIcon('./guide.png'))
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -154,6 +156,8 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(ClientWindow, self).__init__(parent)
         self.setupUi(self)
+        self.setWindowIcon(QIcon('./guide.png'))
+        self.setWindowTitle('校园导航数据编辑器 v1.0')
         self.categoriesTable.setColumnWidth(0, 64)
         self.categoriesTable.setColumnWidth(1, 64)
         self.categoriesTable.setColumnWidth(2, 199)
@@ -169,8 +173,10 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
         self.buildingsTable.horizontalHeader().setSectionResizeMode(5, QHeaderView.Stretch)
         self.buildingsTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.buildingsTable.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.openButton.clicked.connect(self.openfile)
-        self.saveButton.clicked.connect(self.savefile)
+        self.openButton.clicked.connect(lambda: self.openfile("jsonData"))
+        self.saveButton.clicked.connect(lambda: self.savefile("jsonData"))
+        self.openJSButton.clicked.connect(lambda: self.openfile("jsData"))
+        self.saveJSButton.clicked.connect(lambda: self.savefile("jsData"))
         self.catAddBut.clicked.connect(self.cat_add)
         self.catDelBut.clicked.connect(self.cat_del)
         self.catModBut.clicked.connect(self.cat_mod)
@@ -179,42 +185,55 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
         self.budModBut.clicked.connect(self.bud_mod)
         self.categoriesTable.itemClicked.connect(self.category_click)
 
-    @pyqtSlot()
-    def openfile(self):
-        file_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'JSON files(*.json)')[0]
-        print(file_name)
-        if file_name:
-            with open(file_name, 'r', encoding='utf-8') as f:
-                nav_data = json.load(f)
-                print(nav_data)
-            categories = nav_data['categories']
-            buildings = nav_data['buildings']
-            self.categoriesTable.setRowCount(0)
-            self.buildingsTable.setRowCount(0)
-            for category in categories:
-                row_count = self.categoriesTable.rowCount()
-                self.categoriesTable.setRowCount(row_count + 1)
-                self.categoriesTable.setItem(row_count, 0, QTableWidgetItem(str(category['cid'])))
-                self.categoriesTable.setItem(row_count, 1, QTableWidgetItem(category['name']))
-                self.categoriesTable.setItem(row_count, 2, QTableWidgetItem(category['icon']))
-                self.categoriesTable.setItem(row_count, 3, QTableWidgetItem(category['tapIcon']))
-                self.categoriesTable.setItem(row_count, 4, QTableWidgetItem(str(category['quantities'])))
-                for index in range(self.categoriesTable.columnCount()):
-                    self.categoriesTable.item(row_count, index).setTextAlignment(Qt.AlignCenter)
-            for building in buildings:
-                row_count = self.buildingsTable.rowCount()
-                self.buildingsTable.setRowCount(row_count + 1)
-                self.buildingsTable.setItem(row_count, 0, QTableWidgetItem(str(building['cid'])))
-                self.buildingsTable.setItem(row_count, 1, QTableWidgetItem(str(building['bid'])))
-                self.buildingsTable.setItem(row_count, 2, QTableWidgetItem(building['name']))
-                self.buildingsTable.setItem(row_count, 3, QTableWidgetItem(str(building['longitude'])))
-                self.buildingsTable.setItem(row_count, 4, QTableWidgetItem(str(building['latitude'])))
-                self.buildingsTable.setItem(row_count, 5, QTableWidgetItem(building['image']))
-                for index in range(self.buildingsTable.columnCount()):
-                    self.buildingsTable.item(row_count, index).setTextAlignment(Qt.AlignCenter)
+    @pyqtSlot(str)
+    def openfile(self, file_type):
+        try:
+            nav_data = ""
+            if file_type == "jsonData":
+                file_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'JSON files(*.json)')[0]
+                if file_name:
+                    with open(file_name, 'r', encoding='utf-8') as f:
+                        nav_data = json.load(f)
+            if file_type == "jsData":
+                file_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'navData.js(navData.js)')[0]
+                if file_name:
+                    with open(file_name, 'r', encoding='utf-8') as f:
+                        res = f.read()
+                        nav_data = json.loads(res.split("module.exports = ")[1])
+                        del nav_data["qqMapSdk"]
+            if nav_data:
+                categories = nav_data['categories']
+                self.categoriesTable.setRowCount(0)
+                self.buildingsTable.setRowCount(0)
+                for category in categories:
+                    row_count = self.categoriesTable.rowCount()
+                    self.categoriesTable.setRowCount(row_count + 1)
+                    self.categoriesTable.setItem(row_count, 0, QTableWidgetItem(str(category['cid'])))
+                    self.categoriesTable.setItem(row_count, 1, QTableWidgetItem(category['name']))
+                    self.categoriesTable.setItem(row_count, 2, QTableWidgetItem(category['icon']))
+                    self.categoriesTable.setItem(row_count, 3, QTableWidgetItem(category['tapIcon']))
+                    self.categoriesTable.setItem(row_count, 4, QTableWidgetItem(str(category['quantities'])))
+                    for index in range(self.categoriesTable.columnCount()):
+                        self.categoriesTable.item(row_count, index).setTextAlignment(Qt.AlignCenter)
+                del nav_data['categories']
+                for key in nav_data:
+                    buildings = nav_data[key]
+                    for building in buildings:
+                        row_count = self.buildingsTable.rowCount()
+                        self.buildingsTable.setRowCount(row_count + 1)
+                        self.buildingsTable.setItem(row_count, 0, QTableWidgetItem(str(building['cid'])))
+                        self.buildingsTable.setItem(row_count, 1, QTableWidgetItem(str(building['bid'])))
+                        self.buildingsTable.setItem(row_count, 2, QTableWidgetItem(building['name']))
+                        self.buildingsTable.setItem(row_count, 3, QTableWidgetItem(str(building['longitude'])))
+                        self.buildingsTable.setItem(row_count, 4, QTableWidgetItem(str(building['latitude'])))
+                        self.buildingsTable.setItem(row_count, 5, QTableWidgetItem(building['image']))
+                        for index in range(self.buildingsTable.columnCount()):
+                            self.buildingsTable.item(row_count, index).setTextAlignment(Qt.AlignCenter)
+        except Exception as e:
+            QMessageBox.warning(self, "警告", "出现异常，无法读取！\n请请检查文件是否规范并重启程序后再试！\n\n 异常信息：\n" + str(e), QMessageBox.Yes)
 
-    @pyqtSlot()
-    def savefile(self):
+    @pyqtSlot(str)
+    def savefile(self, file_type):
         try:
             categories = []
             row_count = self.categoriesTable.rowCount()
@@ -226,24 +245,35 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
                 category['tapIcon'] = self.categoriesTable.item(i, 3).text()
                 category['quantities'] = int(self.categoriesTable.item(i, 4).text())
                 categories.append(category)
-            buildings = []
+            nav_data = {'categories': categories}
             row_count = self.buildingsTable.rowCount()
-            for i in range(0, row_count):
-                building = {}
-                building['cid'] = int(self.buildingsTable.item(i, 0).text())
-                building['bid'] = int(self.buildingsTable.item(i, 1).text())
-                building['name'] = self.buildingsTable.item(i, 2).text()
-                building['longitude'] = float(self.buildingsTable.item(i, 3).text())
-                building['latitude'] = float(self.buildingsTable.item(i, 4).text())
-                building['image'] = self.buildingsTable.item(i, 5).text()
-                buildings.append(building)
-            nav_data = {'categories': categories, 'buildings': buildings}
-            print(nav_data)
-            file_name = QFileDialog.getSaveFileName(self, '保存文件', '', 'JSON files(*.json)')[0]
-            print(file_name)
-            if file_name:
-                with open(file_name, 'w', encoding="utf-8") as f:
-                    json.dump(nav_data, f, sort_keys=False, indent=4, separators=(',', ': '), ensure_ascii=False)
+            for category in categories:
+                buildings = []
+                for i in range(0, row_count):
+                    if int(self.buildingsTable.item(i, 0).text()) == category['cid']:
+                        building = {}
+                        building['cid'] = int(self.buildingsTable.item(i, 0).text())
+                        building['bid'] = int(self.buildingsTable.item(i, 1).text())
+                        building['name'] = self.buildingsTable.item(i, 2).text()
+                        building['longitude'] = float(self.buildingsTable.item(i, 3).text())
+                        building['latitude'] = float(self.buildingsTable.item(i, 4).text())
+                        building['image'] = self.buildingsTable.item(i, 5).text()
+                        buildings.append(building)
+                nav_data[category['name']] = buildings
+            if file_type == "jsonData":
+                file_name = QFileDialog.getSaveFileName(self, '保存文件', '', 'JSON files(*.json)')[0]
+                if file_name:
+                    with open(file_name, 'w', encoding="utf-8") as f:
+                        json.dump(nav_data, f, sort_keys=False, indent=4, separators=(',', ': '), ensure_ascii=False)
+            if file_type == "jsData":
+                file_name = QFileDialog.getOpenFileName(self, '保存到navData.js', '', 'navData.js(navData.js)')[0]
+                if file_name:
+                    with open(file_name, 'r+', encoding='utf-8') as f:
+                        res = f.read()
+                        nav_data["qqMapSdk"] = json.loads(res.split("module.exports = ")[1])["qqMapSdk"]
+                        f.seek(0)
+                        f.truncate()
+                        f.write("module.exports = " + json.dumps(nav_data, sort_keys=False, indent=4, separators=(',', ': '), ensure_ascii=False))
         except Exception as e:
             QMessageBox.warning(self, "警告", "出现异常，无法保存！\n请排除异常后再试！\n\n 异常信息：\n" + str(e), QMessageBox.Yes)
 
@@ -251,7 +281,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
     def cat_add(self):
         category_dialog = CategoryDialog('添加分类', '', '', '', '', '')
         if category_dialog.exec_():
-            print(category_dialog.get_data())
             category = category_dialog.get_data()
             row_count = self.categoriesTable.rowCount()
             self.categoriesTable.setRowCount(row_count + 1)
@@ -265,7 +294,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def cat_del(self):
-        print(self.categoriesTable.currentRow())
         if self.categoriesTable.currentRow() < 0:
             QMessageBox.warning(self, "警告", "请先选择一行分类！", QMessageBox.Yes )
         else:
@@ -275,7 +303,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def cat_mod(self):
-        print(self.categoriesTable.currentRow())
         if self.categoriesTable.currentRow() < 0:
             QMessageBox.warning(self, "警告", "请先选择一行分类！", QMessageBox.Yes)
         else:
@@ -286,7 +313,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
                                              self.categoriesTable.item(select_row, 3).text(),
                                              self.categoriesTable.item(select_row, 4).text())
             if category_dialog.exec_():
-                print(category_dialog.get_data())
                 category = category_dialog.get_data()
                 self.categoriesTable.setItem(select_row, 0, QTableWidgetItem(category[0]))
                 self.categoriesTable.setItem(select_row, 1, QTableWidgetItem(category[1]))
@@ -300,7 +326,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
     def bud_add(self):
         building_dialog = BuildingDialog('添加建筑', '', '', '', '', '', '')
         if building_dialog.exec_():
-            print(building_dialog.get_data())
             building = building_dialog.get_data()
             row_count = self.buildingsTable.rowCount()
             self.buildingsTable.setRowCount(row_count + 1)
@@ -315,7 +340,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def bud_del(self):
-        print(self.buildingsTable.currentRow())
         if self.buildingsTable.currentRow() < 0:
             QMessageBox.warning(self, "警告", "请先选择一行建筑！", QMessageBox.Yes)
         else:
@@ -325,7 +349,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def bud_mod(self):
-        print(self.buildingsTable.currentRow())
         if self.buildingsTable.currentRow() < 0:
             QMessageBox.warning(self, "警告", "请先选择一行建筑！", QMessageBox.Yes)
         else:
@@ -337,7 +360,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
                                              self.buildingsTable.item(select_row, 4).text(),
                                              self.buildingsTable.item(select_row, 5).text())
             if building_dialog.exec_():
-                print(building_dialog.get_data())
                 building = building_dialog.get_data()
                 self.buildingsTable.setItem(select_row, 0, QTableWidgetItem(building[0]))
                 self.buildingsTable.setItem(select_row, 1, QTableWidgetItem(building[1]))
@@ -352,7 +374,6 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
     def category_click(self):
         category = self.categoriesTable.item(self.categoriesTable.currentRow(), 0).text()
         row_count = self.buildingsTable.rowCount()
-        print(row_count)
         for i in range(0, row_count):
             self.buildingsTable.setRowHidden(i, True)
             if self.buildingsTable.item(i, 0).text() == category:
@@ -362,5 +383,7 @@ class ClientWindow(QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     clientWindow = ClientWindow()
+    with open('qmc2-black.qss', 'r') as q:
+        clientWindow.setStyleSheet(q.read())
     clientWindow.show()
     sys.exit(app.exec_())

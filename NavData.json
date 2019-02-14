@@ -43,7 +43,7 @@
             "quantities": 7
         }
     ],
-    "buildings": [
+    "出入口": [
         {
             "cid": 1,
             "bid": 101,
@@ -83,7 +83,9 @@
             "longitude": 118.889156,
             "latitude": 31.91968,
             "image": "http://map.njit.edu.cn/res?id=80d5353156b246b6b37d58224d645e5a"
-        },
+        }
+    ],
+    "教学楼": [
         {
             "cid": 2,
             "bid": 201,
@@ -140,6 +142,120 @@
             "latitude": 31.923628,
             "image": "http://map.njit.edu.cn/res?id=c09e6277e7d048b5b9fc6d4907df255b"
         },
+        {
+            "cid": 2,
+            "bid": 208,
+            "name": "至真苑·飞兆国际",
+            "longitude": 118.879484,
+            "latitude": 31.925804,
+            "image": "http://map.njit.edu.cn/res?id=744b60277ca74c729a03be152deb82de"
+        },
+        {
+            "cid": 2,
+            "bid": 209,
+            "name": "至真苑·工业中心",
+            "longitude": 118.879516,
+            "latitude": 31.92534,
+            "image": "http://map.njit.edu.cn/res?id=cb08afcd191645de8eabc6d987e09e9c"
+        },
+        {
+            "cid": 2,
+            "bid": 210,
+            "name": "至真苑·物体实验中心",
+            "longitude": 118.879516,
+            "latitude": 31.924921,
+            "image": "http://map.njit.edu.cn/res?id=2f4bc4578e4a40f0ada4b8c5bb40f903"
+        },
+        {
+            "cid": 2,
+            "bid": 211,
+            "name": "至真苑·基础实验中心 ",
+            "longitude": 118.879516,
+            "latitude": 31.924493,
+            "image": "http://map.njit.edu.cn/res?id=e7547d610e31444882ec17973918c184"
+        },
+        {
+            "cid": 2,
+            "bid": 212,
+            "name": "至行苑·工程实践中心1号楼",
+            "longitude": 118.876823,
+            "latitude": 31.920409,
+            "image": "http://map.njit.edu.cn/res?id=28eb61952274458dab3e402efd30a6a3"
+        },
+        {
+            "cid": 2,
+            "bid": 213,
+            "name": "至行苑·工程实践中心2号楼",
+            "longitude": 118.876603,
+            "latitude": 31.920664,
+            "image": "http://map.njit.edu.cn/res?id=00d03dd58fa247a78c6b10b9e5c26ed5"
+        },
+        {
+            "cid": 2,
+            "bid": 214,
+            "name": "至行苑·工程实践中心3号楼",
+            "longitude": 118.876383,
+            "latitude": 31.920974,
+            "image": "http://map.njit.edu.cn/res?id=2da126b5345548129ef197b1c66e2516"
+        },
+        {
+            "cid": 2,
+            "bid": 215,
+            "name": "至行苑·工程实践中心4号楼",
+            "longitude": 118.875927,
+            "latitude": 31.921374,
+            "image": "http://map.njit.edu.cn/res?id=c1bdbf4955de4bd59d21a15a5feb9424"
+        },
+        {
+            "cid": 2,
+            "bid": 216,
+            "name": "至行苑·工程实践中心5号楼",
+            "longitude": 118.875407,
+            "latitude": 31.921597,
+            "image": "http://map.njit.edu.cn/res?id=0c13bd90818d4c9d97d513232afe3ae6"
+        },
+        {
+            "cid": 2,
+            "bid": 217,
+            "name": "至行苑·工程实践中心6号楼",
+            "longitude": 118.876035,
+            "latitude": 31.922713,
+            "image": "http://map.njit.edu.cn/res?id=e6789fb233284535bc04cb6dcdc33260"
+        },
+        {
+            "cid": 2,
+            "bid": 218,
+            "name": "至行苑·工程实践中心7号楼",
+            "longitude": 118.874903,
+            "latitude": 31.922021,
+            "image": "http://map.njit.edu.cn/res?id=a3276fbdfcab40a2a30ecc1c96df7c05"
+        },
+        {
+            "cid": 2,
+            "bid": 219,
+            "name": "至行苑·工程实践中心8号楼",
+            "longitude": 118.876008,
+            "latitude": 31.923186,
+            "image": "http://map.njit.edu.cn/res?id=fd0afa17f1594ad0b48700bd3c8de691"
+        },
+        {
+            "cid": 2,
+            "bid": 220,
+            "name": "至行苑·工程实践中心9号楼",
+            "longitude": 118.876314,
+            "latitude": 31.923478,
+            "image": "http://map.njit.edu.cn/res?id=023165f43d4946dcb795254c7ad61409"
+        },
+        {
+            "cid": 2,
+            "bid": 221,
+            "name": "至行苑·工程实践中心10号楼",
+            "longitude": 118.876464,
+            "latitude": 31.924092,
+            "image": "http://map.njit.edu.cn/res?id=2058e65134b046a99f3ff10b721a8e07"
+        }
+    ],
+    "学生公寓": [
         {
             "cid": 3,
             "bid": 301,
@@ -307,7 +423,9 @@
             "longitude": 118.886222,
             "latitude": 31.924662,
             "image": "http://map.njit.edu.cn/res?id=c53e3d45fa0c4fefad204f0e41efceb1"
-        },
+        }
+    ],
+    "食堂": [
         {
             "cid": 4,
             "bid": 401,
@@ -339,7 +457,9 @@
             "longitude": 118.886281,
             "latitude": 31.922212,
             "image": "http://map.njit.edu.cn/res?id=4db6922a707347208d75391227f318b4"
-        },
+        }
+    ],
+    "体育场馆": [
         {
             "cid": 5,
             "bid": 501,
@@ -419,7 +539,9 @@
             "longitude": 118.87781,
             "latitude": 31.927616,
             "image": "cloud://images-cloud.696d-images-cloud/建筑/null.png"
-        },
+        }
+    ],
+    "公共服务": [
         {
             "cid": 6,
             "bid": 601,
@@ -475,118 +597,6 @@
             "longitude": 118.878583,
             "latitude": 31.919148,
             "image": "http://map.njit.edu.cn/res?id=936f1d68318041b2aa807b5410c20c73"
-        },
-        {
-            "cid": 2,
-            "bid": 208,
-            "name": "至真苑·飞兆国际",
-            "longitude": 118.879484,
-            "latitude": 31.925804,
-            "image": "http://map.njit.edu.cn/res?id=744b60277ca74c729a03be152deb82de"
-        },
-        {
-            "cid": 2,
-            "bid": 209,
-            "name": "至真苑·工业中心",
-            "longitude": 118.879516,
-            "latitude": 31.92534,
-            "image": "http://map.njit.edu.cn/res?id=cb08afcd191645de8eabc6d987e09e9c"
-        },
-        {
-            "cid": 2,
-            "bid": 210,
-            "name": "至真苑·物体实验中心",
-            "longitude": 118.879516,
-            "latitude": 31.924921,
-            "image": "http://map.njit.edu.cn/res?id=2f4bc4578e4a40f0ada4b8c5bb40f903"
-        },
-        {
-            "cid": 2,
-            "bid": 211,
-            "name": "至真苑·基础实验中心 ",
-            "longitude": 118.879516,
-            "latitude": 31.924493,
-            "image": "http://map.njit.edu.cn/res?id=e7547d610e31444882ec17973918c184"
-        },
-        {
-            "cid": 2,
-            "bid": 212,
-            "name": "至行苑·工程实践中心1号楼",
-            "longitude": 118.876823,
-            "latitude": 31.920409,
-            "image": "http://map.njit.edu.cn/res?id=28eb61952274458dab3e402efd30a6a3"
-        },
-        {
-            "cid": 2,
-            "bid": 213,
-            "name": "至行苑·工程实践中心2号楼",
-            "longitude": 118.876603,
-            "latitude": 31.920664,
-            "image": "http://map.njit.edu.cn/res?id=00d03dd58fa247a78c6b10b9e5c26ed5"
-        },
-        {
-            "cid": 2,
-            "bid": 214,
-            "name": "至行苑·工程实践中心3号楼",
-            "longitude": 118.876383,
-            "latitude": 31.920974,
-            "image": "http://map.njit.edu.cn/res?id=2da126b5345548129ef197b1c66e2516"
-        },
-        {
-            "cid": 2,
-            "bid": 215,
-            "name": "至行苑·工程实践中心4号楼",
-            "longitude": 118.875927,
-            "latitude": 31.921374,
-            "image": "http://map.njit.edu.cn/res?id=c1bdbf4955de4bd59d21a15a5feb9424"
-        },
-        {
-            "cid": 2,
-            "bid": 216,
-            "name": "至行苑·工程实践中心5号楼",
-            "longitude": 118.875407,
-            "latitude": 31.921597,
-            "image": "http://map.njit.edu.cn/res?id=0c13bd90818d4c9d97d513232afe3ae6"
-        },
-        {
-            "cid": 2,
-            "bid": 217,
-            "name": "至行苑·工程实践中心6号楼",
-            "longitude": 118.876035,
-            "latitude": 31.922713,
-            "image": "http://map.njit.edu.cn/res?id=e6789fb233284535bc04cb6dcdc33260"
-        },
-        {
-            "cid": 2,
-            "bid": 218,
-            "name": "至行苑·工程实践中心7号楼",
-            "longitude": 118.874903,
-            "latitude": 31.922021,
-            "image": "http://map.njit.edu.cn/res?id=a3276fbdfcab40a2a30ecc1c96df7c05"
-        },
-        {
-            "cid": 2,
-            "bid": 219,
-            "name": "至行苑·工程实践中心8号楼",
-            "longitude": 118.876008,
-            "latitude": 31.923186,
-            "image": "http://map.njit.edu.cn/res?id=fd0afa17f1594ad0b48700bd3c8de691"
-        },
-        {
-            "cid": 2,
-            "bid": 220,
-            "name": "至行苑·工程实践中心9号楼",
-            "longitude": 118.876314,
-            "latitude": 31.923478,
-            "image": "http://map.njit.edu.cn/res?id=023165f43d4946dcb795254c7ad61409"
-        },
-        {
-            "cid": 2,
-            "bid": 221,
-            "name": "至行苑·工程实践中心10号楼",
-            "longitude": 118.876464,
-            "latitude": 31.924092,
-            "image": "http://map.njit.edu.cn/res?id=2058e65134b046a99f3ff10b721a8e07"
         }
     ]
 }
